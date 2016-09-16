@@ -3,10 +3,6 @@ package com.jamp.io.service;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class Initializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-	{
-		System.out.println("Initializer");
-	}
-	
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] { SpringConfig.class };
@@ -21,6 +17,4 @@ public class Initializer extends AbstractAnnotationConfigDispatcherServletInitia
 	protected String[] getServletMappings() {
 		return new String[] { "/" };
 	}
-
-
 }

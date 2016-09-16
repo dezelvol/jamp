@@ -30,7 +30,8 @@ firs test proj</description>
   </build>
   <properties>
 		<spring.version>4.3.1.RELEASE</spring.version>
-		<hsqldb.version>2.3.2</hsqldb.version>
+		<hsqldb.version>2.3.2</hsqldb.version> 
+		<hibernate.version>3.6.7.Final</hibernate.version>
 	</properties>
   
   <dependencies>
@@ -82,6 +83,13 @@ firs test proj</description>
 			<version>${hsqldb.version}</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>1.4.192</version>
+		    <scope>runtime</scope>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 		    <groupId>org.springframework.data</groupId>
@@ -89,6 +97,19 @@ firs test proj</description>
 		    <version>1.10.2.RELEASE</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+		    <version>3.1.1.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+		   <groupId>org.hibernate</groupId>
+		   <artifactId>hibernate-entitymanager</artifactId>
+		   <version>${hibernate.version}</version>
+		</dependency>
+	
 	</dependencies>
 	
 </project>

@@ -4,14 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(
-	//basePackages = 
-		{"com.jamp.io.service"}
-//	excludeFilters = @Configuration
-	)
+@ComponentScan({"com.jamp.io.service"})
 public class SpringConfig {
-	{
-		System.out.println("SpringConfig");
-	}
 	
 }
