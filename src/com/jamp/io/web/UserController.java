@@ -20,7 +20,7 @@ public class UserController {
 	private UserDao userDao;
 	
 	@RequestMapping(method=RequestMethod.POST, params="name")
-	public ModelAndView index(@RequestParam String name, ModelAndView modelAndView) {
+	public ModelAndView addUser(@RequestParam String name, ModelAndView modelAndView) {
 		modelAndView.setViewName("user");
 		User user = new User();
 		user.setName(name);
@@ -30,5 +30,12 @@ public class UserController {
 		return modelAndView;
 	}
 	
-//	@RequestMapping
+	@RequestMapping(value="/delete", params="name")
+	public ModelAndView deleteUser(@RequestParam String name, ModelAndView modelAndView) {
+		modelAndView.setViewName("index");
+		userDao.deleteUser(name);
+		List<User> sd = userDao.getUserList();
+		modelAndView.addObject("users", sd);
+		return modelAndView;
+	}
 }
