@@ -10,19 +10,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan (
-		basePackages="com.jamp.io.web"
-		)
+@ComponentScan (basePackages="com.jamp.io.web")
 public class WebConfig extends WebMvcConfigurerAdapter {
-	{
-		System.out.println("WebConfig");
-	}
 	
 	@Bean
 	public ViewResolver resolver() {
-		System.out.println("resolver");
 		InternalResourceViewResolver res = new InternalResourceViewResolver();
-		res.setPrefix("WEB-INF/view/");
+		res.setPrefix("/WEB-INF/view/");
 		res.setSuffix(".jsp");
 		return res;
 	}
