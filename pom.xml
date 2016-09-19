@@ -5,8 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>jamp1</name>
-  <description>fits test proj
-firs test proj</description>
+  <description>first test proj</description>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -101,7 +100,7 @@ firs test proj</description>
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-orm</artifactId>
-		    <version>3.1.1.RELEASE</version>
+		    <version>${spring.version}</version>
 		</dependency>
 		
 		<dependency>
@@ -116,6 +115,14 @@ firs test proj</description>
 		    <version>3.1.0</version>
 		    <scope>provided</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.6.2</version>
+		</dependency>
+		
 	</dependencies>
 	
 </project>
