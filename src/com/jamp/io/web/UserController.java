@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import com.jamp.io.model.User;
 import com.jamp.io.model.UserDao;
@@ -37,7 +36,6 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView("user");
 		modelAndView.setViewName("user");
 		
-		View a = modelAndView.getView();
 		userDao.deleteUser(name);
 		List<User> sd = userDao.getUserList();
 		modelAndView.addObject("users", sd);
