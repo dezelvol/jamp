@@ -1,4 +1,4 @@
-package com.jamp.io.model;
+package com.jamp.io.model.dao;
 
 import java.util.List;
 
@@ -8,12 +8,13 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jamp.io.model.pojo.User;
+
 @Repository
 public class UserDao {
     @PersistenceContext
 	protected EntityManager entityManager;
 	
-    @Transactional
 	public void saveUser(User user) {
 		entityManager.persist(user);
 		entityManager.flush();
@@ -28,7 +29,6 @@ public class UserDao {
 		return entityManager.find(User.class, name);
 	}
 
-    @Transactional
 	public void deleteUser(String name) {
 		entityManager.remove(entityManager.find(User.class, name));
 	}

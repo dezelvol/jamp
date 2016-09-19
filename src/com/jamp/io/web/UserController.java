@@ -3,21 +3,24 @@ package com.jamp.io.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jamp.io.model.User;
-import com.jamp.io.model.UserDao;
+import com.jamp.io.model.dao.UserDao;
+import com.jamp.io.model.pojo.User;
+import com.jamp.io.service.UserService;
 
 @Controller
 @RequestMapping(value="/user")
+@Order(2)
 public class UserController {
 
 	@Autowired
-	private UserDao userDao;
+	private UserService userDao;
 	
 	@RequestMapping(method=RequestMethod.POST, params="name")
 	public ModelAndView addUser(@RequestParam String name, ModelAndView modelAndView) {

@@ -1,4 +1,4 @@
-package com.jamp.io.model;
+package com.jamp.io.model.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

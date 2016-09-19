@@ -1,4 +1,4 @@
-package com.jamp.io.service;
+package com.jamp.io.config;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -15,7 +15,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.jamp.io.model.UserDao;
+import com.jamp.io.model.dao.UserDao;
+import com.jamp.io.service.UserService;
 
 @Configuration
 @EnableJpaRepositories
@@ -51,9 +52,14 @@ public class Persistanse {
   
        return transactionManager;
     }
-    
+
     @Bean
     public UserDao userDao() {
     	return new UserDao();
+    }
+    
+    @Bean
+    public UserService userService() {
+    	return new UserService();
     }
 }

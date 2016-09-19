@@ -1,4 +1,4 @@
-package com.jamp.io.service;
+package com.jamp.io.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
