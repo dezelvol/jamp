@@ -25,11 +25,11 @@ public class UserDao {
 		return entityManager.createQuery("from User u").getResultList();
 	}
 	
-	public User getUser(String name) {
-		return entityManager.find(User.class, name);
+	public User getUser(long id) {
+		return entityManager.find(User.class, id);
 	}
 
-	public void deleteUser(String name) {
-		entityManager.remove(entityManager.find(User.class, name));
+	public void deleteUser(long id) {
+		entityManager.remove(entityManager.find(User.class, id));
 	}
 }

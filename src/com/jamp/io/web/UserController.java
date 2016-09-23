@@ -33,13 +33,13 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/delete", params="name")
-	public ModelAndView deleteUser(@RequestParam String name) {
+	@RequestMapping(value="/delete", params="id")
+	public ModelAndView deleteUser(@RequestParam long id) {
 
 		ModelAndView modelAndView = new ModelAndView("user");
 		modelAndView.setViewName("user");
 		
-		userDao.deleteUser(name);
+		userDao.deleteUser(id);
 		List<User> sd = userDao.getUserList();
 		modelAndView.addObject("users", sd);
 		return modelAndView;

@@ -26,12 +26,12 @@ public class UserService {
 		return userDao.getUserList();
 	}
 	
-	public User getUser(String name) {
-		return userDao.getUser(name);
+	public User getUser(long id) {
+		return userDao.getUser(id);
 	}
 
     @Transactional
-	public void deleteUser(String name) {
-    	userDao.deleteUser(name);
+	public void deleteUser(long id) {
+    	userDao.deleteUser(id);
 	}
 }
