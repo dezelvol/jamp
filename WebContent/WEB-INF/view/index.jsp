@@ -2,9 +2,10 @@
 <HEAD>
 </HEAD>
 <BODY>
-Insert your data:
-<form action="user" method="post">
-	<label>name<input name="name" id="name" /></label>
+Insert your data:<br>
+<form action="login" method="post">
+	<label>name<input name="name" id="name" /></label><br>
+	<label>pass<input name="pass" id="pass" /></label><br>
 	<input type="submit" value="ok"/>
 </form>
 </BODY>

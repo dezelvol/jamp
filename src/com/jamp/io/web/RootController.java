@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value="/*")
-@Order(1)
 public class RootController {
 	
 	@RequestMapping

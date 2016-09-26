@@ -16,32 +16,31 @@ import com.jamp.io.service.UserService;
 
 @Controller
 @RequestMapping(value="/user")
-@Order(2)
 public class UserController {
 
 	@Autowired
 	private UserService userDao;
-	
-	@RequestMapping(method=RequestMethod.POST, params="name")
-	public ModelAndView addUser(@RequestParam String name, ModelAndView modelAndView) {
-		modelAndView.setViewName("user");
+
+	@RequestMapping(value="/add", method=RequestMethod.POST, params={"name", "pass"})
+	public String addUser(@RequestParam String name, @RequestParam String pass, ModelAndView modelAndView) {
 		User user = new User();
 		user.setName(name);
+		user.setPassword(pass);
 		userDao.saveUser(user);
+		return "redirect:/user";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ModelAndView addUser(ModelAndView modelAndView) {
+		modelAndView.setViewName("user");
 		List<User> sd = userDao.getUserList();
 		modelAndView.addObject("users", sd);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/delete", params="id")
-	public ModelAndView deleteUser(@RequestParam long id) {
-
-		ModelAndView modelAndView = new ModelAndView("user");
-		modelAndView.setViewName("user");
-		
+	public String deleteUser(@RequestParam long id) {
 		userDao.deleteUser(id);
-		List<User> sd = userDao.getUserList();
-		modelAndView.addObject("users", sd);
-		return modelAndView;
+		return "redirect:/user";
 	}
 }

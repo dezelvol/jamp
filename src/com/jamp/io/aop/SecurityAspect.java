@@ -7,32 +7,36 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.jamp.io.model.pojo.User;
 
 @Aspect
 @Component
-public class LoggerAspect {
+public class SecurityAspect {
 	private static final Logger LOGGER =
 			LoggerFactory.getLogger(LoggerAspect.class);
 	
-	@Around("execution(* com.jamp.io.model.dao..*(..))")
-	public Object LogControllerMethod(ProceedingJoinPoint joinPoint) throws Throwable {
+	@Autowired
+	User registeredUser;
+	
+	@Around(value = "execution(* com.jamp.io.web.UserController.*(..))")
+	public Object LogException(ProceedingJoinPoint joinPoint) throws Throwable {
 		String method = joinPoint.getSignature().getName();
 		Object[] methodArgs = joinPoint.getArgs();
 		String arguments = "";
-		System.out.println(111555);
 		for(Object o : methodArgs) {
 			arguments += " " + o;
 		}
+		if(registeredUser.isBlank()) {
+			LOGGER.warn("Unauthorized user access");
+			throw new SecurityException("Unauthorized");
+		}
+		
 		LOGGER.info("Call DAO method " + method + ", with args: " + arguments);
 		Object result = joinPoint.proceed();
 		LOGGER.info("DAO method " + method + ", returns: " + result);
 		return result;
-	}
-	
-	@AfterThrowing(value = "execution(* com.jamp.io.model.dao..*(..))", throwing="t")
-	public void LogException(JoinPoint joinPoint, Throwable t) {
-		String method = joinPoint.getSignature().getName();
-		LOGGER.error("Call method " + method + ", thrown exception: " + t);
 	}
 }

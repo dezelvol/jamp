@@ -3,7 +3,14 @@
 <HEAD>
 </HEAD>
 <BODY>
-	User Added
+	ADD USER?<br>
+	<form action="user/add" method="post">
+		<label>name<input name="name" id="name" /></label><br>
+		<label>pass<input name="pass" id="pass" /></label><br>
+		<input type="submit" value="ok"/>
+	</form>
+	<br><br>
+	LIST OF USERS
 	<br><br>
 	Names of users<br>
 	<c:forEach items="${users}" var="user">

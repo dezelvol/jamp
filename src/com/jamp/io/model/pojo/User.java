@@ -1,18 +1,35 @@
 package com.jamp.io.model.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class User {
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue
 	private long id;
 	
-	private String name;
+	@Column(unique=true)
+	private String name = "";
 	
-	private String password;
+	private String password = "";
+	
+	public User() {
+		super();
+	}
 
+	public User(String name, String password) {
+		super();
+		this.name = name;
+		this.password = password;
+	}
+
+	public boolean isBlank() {
+		return name.equals("") && password.equals("");
+	}
+	
 	public long getId() {
 		return id;
 	}
