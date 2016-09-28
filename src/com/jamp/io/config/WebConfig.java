@@ -16,7 +16,7 @@ import com.jamp.io.model.pojo.User;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan (basePackages="com.jamp.io")
+@ComponentScan (basePackages="com.jamp.io.web")
 public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean
@@ -32,5 +32,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public User registeredUser() {
 		return new User();
 	}
+	
 	
 }

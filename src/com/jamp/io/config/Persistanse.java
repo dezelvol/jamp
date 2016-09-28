@@ -3,6 +3,7 @@ package com.jamp.io.config;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -28,6 +29,7 @@ import com.jamp.io.service.UserServiceImpl;
 @EnableAspectJAutoProxy
 @EnableJpaRepositories
 @EnableTransactionManagement
+@ComponentScan (basePackages="com.jamp.io.model")
 public class Persistanse {
     @Bean
     public DataSource dataSource() {
@@ -72,6 +74,17 @@ public class Persistanse {
 
 	@EventListener
 	public void handleContextRefresh(ContextRefreshedEvent event) {
-		if(userService().getUserList().size()==0)userService().saveUser(new User("yura", "111"));
+		System.out.println("_____________________");
+		System.out.println(event.getApplicationContext().getDisplayName());
+		if(userService().getUserList().size()==0) {
+			System.out.println("here");
+			userService().saveUser(new User("yura", "111"));
+		}
     }
+	
+
+	@Bean
+	public ProxiedBeanPostProcessor proxiedBeanPostProcessor() {
+		return new ProxiedBeanPostProcessor();
+	}
 }
