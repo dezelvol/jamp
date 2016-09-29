@@ -63,8 +63,8 @@ public class Persistanse {
     }
 
     @Bean
-    public UserDao userDao() {
-    	return new UserDaoJPA();
+    public UserDao<User> userDao() {
+    	return new UserDaoJPA<User>(User.class);
     }
     
     @Bean

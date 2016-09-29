@@ -1,5 +1,6 @@
 package com.jamp.io.model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,34 +9,89 @@ import javax.persistence.Query;
 
 import com.jamp.io.model.pojo.User;
 
-public class UserDaoJPA implements UserDao {
+public class UserDaoJPA<T extends User> implements UserDao<T> {
+	final Class<T> type;
 	
-    @PersistenceContext
+    public UserDaoJPA(Class<T> type) {
+		super();
+		this.type = type;
+	}
+
+	@PersistenceContext
 	protected EntityManager entityManager;
 	
-	public void saveUser(User user) {
-		entityManager.persist(user);
+	public T saveUser(T user) {
+		T ret = entityManager.merge(user);
 		entityManager.flush();
+		return ret;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<User> getUserList() {
-		return entityManager.createQuery("from User u").getResultList();
+		return entityManager.createQuery("from " + type.getSimpleName() + " u").getResultList();
 	}
 
-	public User getUser(long id) {
-		return entityManager.find(User.class, id);
+	public T getUser(long id) {
+		return (T) entityManager.find(type, id);
 	}
 	
-	public User getUser(String name) {
-		Query query = entityManager.createQuery("from User u where name=?");
+	public T getUser(String name) {
+		Query query = entityManager.createQuery("from " + type.getSimpleName() + " u where name=?");
 		query.setParameter(1, name);
-		List<User> users = query.getResultList();
+		List<T> users = query.getResultList();
 		return users.size() > 0 ? users.get(0) : null;
 	}
 
 	public void deleteUser(long id) {
 		User us = entityManager.find(User.class, id);
 		if(us.getId() != 1)entityManager.remove(us);
+	}
+
+	@Override
+	public T setCreatedBy(T user, User author) {
+		user = this.getUser(user.getId());
+		user.setCreatedBy(author);
+		return entityManager.merge(user);
+	}
+
+	@Override
+	public T setLastUpdatedBy(T user, User author) {
+		user = this.getUser(user.getId());
+		user.setLastUpdatedBy(author);
+		return entityManager.merge(user);
+	}
+
+	@Override
+	public T setUpdateDate(T user, Date date) {
+		user = this.getUser(user.getId());
+		user.setLastUpdate(date);
+		return entityManager.merge(user);
+	}
+
+	@Override
+	public T setCreateDate(T user, Date date) {
+		user = this.getUser(user.getId());
+		user.setCreated(date);
+		return entityManager.merge(user);
+	}
+
+	@Override
+	public User getCreatedBy(T user) {
+		return this.getUser(user.getId()).getCreatedBy();
+	}
+
+	@Override
+	public User getLastUpdatedBy(T user) {
+		return this.getUser(user.getId()).getLastUpdatedBy();
+	}
+
+	@Override
+	public Date getUpdateDate(T user) {
+		return this.getUser(user.getId()).getLastUpdate();
+	}
+
+	@Override
+	public Date getCreateDate(T user) {
+		return this.getUser(user.getId()).getCreated();
 	}
 }
