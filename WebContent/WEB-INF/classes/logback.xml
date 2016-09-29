@@ -9,8 +9,10 @@
 		</layout>
 	</appender>
 
-	<root level="error">
+	<root level="info">
 		<appender-ref ref="STDOUT" />
 	</root>
-
+	
+	<logger name="org" level="error" />
+	<logger name="com" level="info" />
 </configuration>

@@ -20,7 +20,6 @@ public class LoggerAspect {
 		String method = joinPoint.getSignature().getName();
 		Object[] methodArgs = joinPoint.getArgs();
 		String arguments = "";
-		System.out.println(111555);
 		for(Object o : methodArgs) {
 			arguments += " " + o;
 		}

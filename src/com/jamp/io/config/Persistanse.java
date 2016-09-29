@@ -74,17 +74,8 @@ public class Persistanse {
 
 	@EventListener
 	public void handleContextRefresh(ContextRefreshedEvent event) {
-		System.out.println("_____________________");
-		System.out.println(event.getApplicationContext().getDisplayName());
 		if(userService().getUserList().size()==0) {
-			System.out.println("here");
 			userService().saveUser(new User("yura", "111"));
 		}
     }
-	
-
-	@Bean
-	public ProxiedBeanPostProcessor proxiedBeanPostProcessor() {
-		return new ProxiedBeanPostProcessor();
-	}
 }
