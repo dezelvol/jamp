@@ -22,6 +22,7 @@
         <version>2.6</version>
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
+          <finalName>jamp</finalName>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
