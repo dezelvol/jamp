@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.jamp.io.model.pojo.SessionData;
 import com.jamp.io.model.pojo.User;
 
 @Configuration
@@ -29,9 +30,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean
 	@Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public User registeredUser() {
-		return new User();
+	public SessionData registeredUser() {
+		return new SessionData();
 	}
-	
-	
 }

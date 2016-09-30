@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.jamp.io.model.dao.UserDao;
 import com.jamp.io.model.dao.UserDaoJPA;
+import com.jamp.io.model.pojo.Mentor;
+import com.jamp.io.model.pojo.Participant;
 import com.jamp.io.model.pojo.User;
 import com.jamp.io.service.UserService;
 import com.jamp.io.service.UserServiceImpl;
@@ -66,6 +68,16 @@ public class Persistanse {
     public UserDao<User> userDao() {
     	return new UserDaoJPA<User>(User.class);
     }
+
+    @Bean
+    public UserDao<Mentor> mentorDao() {
+    	return new UserDaoJPA<Mentor>(Mentor.class);
+    }
+
+    @Bean
+    public UserDao<Participant> participantDao() {
+    	return new UserDaoJPA<Participant>(Participant.class);
+    }
     
     @Bean
     public UserService userService() {
@@ -75,7 +87,7 @@ public class Persistanse {
 	@EventListener
 	public void handleContextRefresh(ContextRefreshedEvent event) {
 		if(userService().getUserList().size()==0) {
-			userService().saveUser(new User("yura", "111"));
+			userService().addMentor(new Mentor("yura", "111"));
 		}
     }
 }

@@ -1,6 +1,5 @@
 package com.jamp.io.model.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -19,15 +18,21 @@ public class UserDaoJPA<T extends User> implements UserDao<T> {
 
 	@PersistenceContext
 	protected EntityManager entityManager;
+
+	public T addUser(T user) {
+		entityManager.persist(user);
+		entityManager.flush();
+		return user;
+	}
 	
-	public T saveUser(T user) {
+	public T updateUser(T user) {
 		T ret = entityManager.merge(user);
 		entityManager.flush();
 		return ret;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<User> getUserList() {
+	public List<T> getUserList() {
 		return entityManager.createQuery("from " + type.getSimpleName() + " u").getResultList();
 	}
 
@@ -35,6 +40,7 @@ public class UserDaoJPA<T extends User> implements UserDao<T> {
 		return (T) entityManager.find(type, id);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public T getUser(String name) {
 		Query query = entityManager.createQuery("from " + type.getSimpleName() + " u where name=?");
 		query.setParameter(1, name);
@@ -43,55 +49,7 @@ public class UserDaoJPA<T extends User> implements UserDao<T> {
 	}
 
 	public void deleteUser(long id) {
-		User us = entityManager.find(User.class, id);
+		User us = entityManager.find(type, id);
 		if(us.getId() != 1)entityManager.remove(us);
-	}
-
-	@Override
-	public T setCreatedBy(T user, User author) {
-		user = this.getUser(user.getId());
-		user.setCreatedBy(author);
-		return entityManager.merge(user);
-	}
-
-	@Override
-	public T setLastUpdatedBy(T user, User author) {
-		user = this.getUser(user.getId());
-		user.setLastUpdatedBy(author);
-		return entityManager.merge(user);
-	}
-
-	@Override
-	public T setUpdateDate(T user, Date date) {
-		user = this.getUser(user.getId());
-		user.setLastUpdate(date);
-		return entityManager.merge(user);
-	}
-
-	@Override
-	public T setCreateDate(T user, Date date) {
-		user = this.getUser(user.getId());
-		user.setCreated(date);
-		return entityManager.merge(user);
-	}
-
-	@Override
-	public User getCreatedBy(T user) {
-		return this.getUser(user.getId()).getCreatedBy();
-	}
-
-	@Override
-	public User getLastUpdatedBy(T user) {
-		return this.getUser(user.getId()).getLastUpdatedBy();
-	}
-
-	@Override
-	public Date getUpdateDate(T user) {
-		return this.getUser(user.getId()).getLastUpdate();
-	}
-
-	@Override
-	public Date getCreateDate(T user) {
-		return this.getUser(user.getId()).getCreated();
 	}
 }

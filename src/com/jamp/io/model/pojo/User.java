@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class User {
+public abstract class User {
 	@Id 
 	@GeneratedValue
 	private long id;
