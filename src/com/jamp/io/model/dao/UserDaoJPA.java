@@ -19,12 +19,14 @@ public class UserDaoJPA<T extends User> implements UserDao<T> {
 	@PersistenceContext
 	protected EntityManager entityManager;
 
+	@Override
 	public T addUser(T user) {
 		entityManager.persist(user);
 		entityManager.flush();
 		return user;
 	}
-	
+
+	@Override
 	public T updateUser(T user) {
 		T ret = entityManager.merge(user);
 		entityManager.flush();
@@ -32,15 +34,18 @@ public class UserDaoJPA<T extends User> implements UserDao<T> {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<T> getUserList() {
 		return entityManager.createQuery("from " + type.getSimpleName() + " u").getResultList();
 	}
 
+	@Override
 	public T getUser(long id) {
 		return (T) entityManager.find(type, id);
 	}
 	
 	@SuppressWarnings("unchecked")
+	@Override
 	public T getUser(String name) {
 		Query query = entityManager.createQuery("from " + type.getSimpleName() + " u where name=?");
 		query.setParameter(1, name);
@@ -48,6 +53,7 @@ public class UserDaoJPA<T extends User> implements UserDao<T> {
 		return users.size() > 0 ? users.get(0) : null;
 	}
 
+	@Override
 	public void deleteUser(long id) {
 		User us = entityManager.find(type, id);
 		if(us.getId() != 1)entityManager.remove(us);

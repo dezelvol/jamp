@@ -20,18 +20,23 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao<Participant> participantDao;
 
+	@Override
 	public void addUser(User user) {
     	userDao.addUser(user);
 	}
 
+	@Override
 	public List<User> getUserList() {
-		return userDao.getUserList();
+		List<User> userList = userDao.getUserList();
+		return userList;
 	}
-	
+
+	@Override
 	public User getUser(long id) {
 		return userDao.getUser(id);
 	}
 
+	@Override
 	public void deleteUser(long id) {
     	userDao.deleteUser(id);
 	}
@@ -41,19 +46,23 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUser(name);
 	}
 
-	
+
+	@Override
 	public void addMentor(Mentor user) {
 		mentorDao.addUser(user);
 	}
 
+	@Override
 	public List<Mentor> getMentorList() {
 		return mentorDao.getUserList();
 	}
-	
+
+	@Override
 	public Mentor getMentor(long id) {
 		return mentorDao.getUser(id);
 	}
 
+	@Override
 	public void deleteMentor(long id) {
 		mentorDao.deleteUser(id);
 	}
@@ -64,19 +73,23 @@ public class UserServiceImpl implements UserService {
 	}
 	
 
-	
+
+	@Override
 	public void addParticipant(Participant user) {
 		participantDao.addUser(user);
 	}
 
+	@Override
 	public List<Participant> getParticipantList() {
 		return participantDao.getUserList();
 	}
-	
+
+	@Override
 	public Participant getParticipant(long id) {
 		return participantDao.getUser(id);
 	}
 
+	@Override
 	public void deleteParticipant(long id) {
 		mentorDao.deleteUser(id);
 	}

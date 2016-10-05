@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.jamp.io.model.pojo.Auditable;
 import com.jamp.io.model.pojo.SessionData;
 import com.jamp.io.model.pojo.User;
 
@@ -17,7 +18,7 @@ import com.jamp.io.model.pojo.User;
 @Component
 public class SecurityAspect {
 	private static final Logger LOGGER =
-			LoggerFactory.getLogger(LoggerAspect.class);
+			LoggerFactory.getLogger(SecurityAspect.class);
 	
 	@Autowired
 	SessionData sessionData;
@@ -41,25 +42,27 @@ public class SecurityAspect {
 		return result;
 	}
 
-//	@Around("execution(* com.jamp.io.model.dao..addUser(..))")
-//	public Object setCreated(ProceedingJoinPoint joinPoint) throws Throwable {
-//		String method = joinPoint.getSignature().getName();
-//		Object[] methodArgs = joinPoint.getArgs();
-//		LOGGER.info("New user");
-//		((User)methodArgs[0]).setCreated(new Date());
-//		if(((User)methodArgs[0]).getId() != 1l && sessionData.getUser() != null) {
-//			((User)methodArgs[0]).setCreatedBy(sessionData.getUser());	
-//		}
-//		return joinPoint.proceed();
-//	}
+	@Around("execution(* com.jamp.io.model.dao..add*(..))")
+	public Object setCreated(ProceedingJoinPoint joinPoint) throws Throwable {
+		Object[] methodArgs = joinPoint.getArgs();
+		LOGGER.info("New " + methodArgs[0].getClass().getSimpleName());
+		if(methodArgs[0] instanceof Auditable) {
+			((Auditable)methodArgs[0]).setCreated(new Date());
+			if(sessionData.getUser() != null) {
+				((Auditable)methodArgs[0]).setCreatedBy(sessionData.getUser());	
+			}
+		}
+		return joinPoint.proceed();
+	}
 	
-	@Around("execution(* com.jamp.io.model..updateUser(..))")
+	@Around("execution(* com.jamp.io.model.dao..update*(..))")
 	public Object setUpdated(ProceedingJoinPoint joinPoint) throws Throwable {
-		String method = joinPoint.getSignature().getName();
 		Object[] methodArgs = joinPoint.getArgs();
 		LOGGER.info("New updated");
-		((User)methodArgs[0]).setLastUpdate(new Date());
-		((User)methodArgs[0]).setLastUpdatedBy(sessionData.getUser());
+		if(methodArgs[0] instanceof Auditable) {
+			((Auditable)methodArgs[0]).setLastUpdated(new Date());
+			((Auditable)methodArgs[0]).setLastUpdatedBy(sessionData.getUser());
+		}
 		return joinPoint.proceed();
 	}
 }

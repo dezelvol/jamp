@@ -1,5 +1,6 @@
 package com.jamp.io.model.pojo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -10,7 +11,7 @@ import javax.persistence.OneToMany;
 public class Mentor extends User {
 
 	@OneToMany(targetEntity=Participant.class, mappedBy="mentor", cascade=CascadeType.REMOVE)
-	private Collection<Participant> mentees;
+	private Collection<Participant> mentees = new ArrayList<>();
 
 	public Mentor(String string, String string2) {
 		super(string, string2);

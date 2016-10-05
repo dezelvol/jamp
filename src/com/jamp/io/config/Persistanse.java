@@ -1,10 +1,16 @@
 package com.jamp.io.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+
+import org.flywaydb.core.Flyway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -38,7 +44,24 @@ public class Persistanse {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
 
+//	private Map<String, Object> jpaProperties() {
+//		final Map<String, Object> map = new HashMap<>();
+//		map.put("eclipselink.weaving", "false");
+// 
+//		return map;
+//	}
+//	
+//	@Bean(initMethod = "migrate")
+//	Flyway flyway() {
+//		Flyway flyway = new Flyway();
+//		flyway.setDataSource(dataSource());
+//		flyway.baseline();
+//		flyway.setLocations("com.jamp.io.model.dbmigration");
+//		return flyway;
+//	}
+	
     @Bean
+//	@DependsOn(value = { "flyway" })
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
         lef.setDataSource(dataSource);
@@ -63,7 +86,7 @@ public class Persistanse {
   
        return transactionManager;
     }
-
+ 
     @Bean
     public UserDao<User> userDao() {
     	return new UserDaoJPA<User>(User.class);
@@ -80,14 +103,12 @@ public class Persistanse {
     }
     
     @Bean
+    @DependsOn("entityManagerFactory")
     public UserService userService() {
     	return new UserServiceImpl();
     }
-
+    
 	@EventListener
 	public void handleContextRefresh(ContextRefreshedEvent event) {
-		if(userService().getUserList().size()==0) {
-			userService().addMentor(new Mentor("yura", "111"));
-		}
     }
 }

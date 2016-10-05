@@ -6,7 +6,8 @@
 	LIST OF ALL USERS
 	<br>
 	<c:forEach items="${users}" var="user">
-	    ${user.id} ${user.name}<form action="user/delete" method="post"><input name="id" type="hidden" value="${user.id}"/><input type="submit" value="delete"/></form><br>
+	    id: ${user.id}, name: ${user.name}, created: ${user.created}, created by(id): ${user.createdBy.id}, last updated: ${user.lastUpdated}, last updated by(id): ${user.lastUpdatedBy.id}
+	    <form style="display:inline;" action="user/delete" method="post"><input name="id" type="hidden" value="${user.id}"/><input type="submit" value="delete"/></form><br>
 	</c:forEach>
 	<table>
 	<tr>
