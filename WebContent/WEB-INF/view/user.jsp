@@ -1,4 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <HTML>
 <HEAD>
 </HEAD>
@@ -13,11 +15,13 @@
 	<tr>
 	<td>
 		ADD MENTOR?<br>
-		<form action="mentor/add" method="post">
-			<label>name<input name="name" id="name" /></label><br>
-			<label>pass<input name="pass" id="pass" /></label><br>
+		<f:form action="mentor/add" method="post" modelAttribute="mentor">
+			<label>name<f:input path="name" name="name" id="name" /></label><br>
+			<f:errors path="name"></f:errors>
+			<label>pass<f:input path="password" name="password" id="password" /></label><br>
+			<f:errors path="password"></f:errors>
 			<input type="submit" value="ok"/>
-		</form>
+		</f:form>
 		<br><br>
 		LIST OF MENTORS
 		<br><br>
@@ -30,7 +34,7 @@
 		ADD MENTEE?<br>
 		<form action="participant/add" method="post">
 			<label>name<input name="name" id="name" /></label><br>
-			<label>pass<input name="pass" id="pass" /></label><br>
+			<label>pass<input name="password" id="password" /></label><br>
 			<label>mentor ID<input name="mentor" id="mentor" /></label><br>
 			<input type="submit" value="ok"/>
 		</form>

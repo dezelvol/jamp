@@ -23,7 +23,7 @@ public class SecurityAspect {
 	@Autowired
 	SessionData sessionData;
 	
-	@Around(value = "execution(* com.jamp.io.web.UserController.*(..))")
+	@Around(value = "execution(* com.jamp.io.web.crud..*(..))")
 	public Object secure(ProceedingJoinPoint joinPoint) throws Throwable {
 		String method = joinPoint.getSignature().getName();
 		Object[] methodArgs = joinPoint.getArgs();

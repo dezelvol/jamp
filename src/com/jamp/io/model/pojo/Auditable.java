@@ -2,55 +2,24 @@ package com.jamp.io.model.pojo;
 
 import java.util.Date;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Entity;
 
-public abstract class Auditable {
-
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastUpdated;
+public interface Auditable {
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date created;
-	
-	@ManyToOne
-	private User lastUpdatedBy;
+	public Date getLastUpdated();
 
-	@ManyToOne
-	private User createdBy;
-	
-	
-	public Date getLastUpdated() {
-		return lastUpdated;
-	}
+	public void setLastUpdated(Date lastUpdated);
 
-	public void setLastUpdated(Date lastUpdated) {
-		this.lastUpdated = lastUpdated;
-	}
+	public Date getCreated();
 
-	public Date getCreated() {
-		return created;
-	}
+	public void setCreated(Date created);
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+	public User getLastUpdatedBy();
 
-	public User getLastUpdatedBy() {
-		return lastUpdatedBy;
-	}
+	public void setLastUpdatedBy(User lastUpdatedBy);
 
-	public void setLastUpdatedBy(User lastUpdatedBy) {
-		this.lastUpdatedBy = lastUpdatedBy;
-	}
+	public User getCreatedBy();
 
-	public User getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
+	public void setCreatedBy(User createdBy);
 
 }
