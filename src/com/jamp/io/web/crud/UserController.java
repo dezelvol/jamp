@@ -3,9 +3,11 @@ package com.jamp.io.web.crud;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,16 +28,17 @@ public class UserController {
 	private UserService userDao;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView addUser(ModelAndView modelAndView, BindingResult results, HttpServletRequest request) {
-		modelAndView.setViewName("user");
+	public String addUser(Model modelAndView) {
+		
 		List<User> sd = userDao.getUserList();
-		modelAndView.addObject("users", sd);
+		modelAndView.addAttribute("users", sd);
 		List<Mentor> ml = userDao.getMentorList();
-		modelAndView.addObject("mentors", ml);
+		modelAndView.addAttribute("mentors", ml);
 		List<Participant> pl = userDao.getParticipantList();
-		modelAndView.addObject("participants", pl);
-		modelAndView.addObject("mentor", new Mentor());
-		return modelAndView;
+		modelAndView.addAttribute("participants", pl);
+		if(!modelAndView.containsAttribute("mentor"))modelAndView.addAttribute("mentor", new Mentor());
+		if(!modelAndView.containsAttribute("participant"))modelAndView.addAttribute("participant", new Participant());
+		return "user";
 	}
 	
 	@RequestMapping(value="/delete", params="id")

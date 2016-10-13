@@ -17,9 +17,9 @@
 		ADD MENTOR?<br>
 		<f:form action="mentor/add" method="post" modelAttribute="mentor">
 			<label>name<f:input path="name" name="name" id="name" /></label><br>
-			<f:errors path="name"></f:errors>
+			<f:errors path="name"/><br/>
 			<label>pass<f:input path="password" name="password" id="password" /></label><br>
-			<f:errors path="password"></f:errors>
+			<f:errors path="password"/><br/>
 			<input type="submit" value="ok"/>
 		</f:form>
 		<br><br>
@@ -32,12 +32,15 @@
 	</td>
 	<td>
 		ADD MENTEE?<br>
-		<form action="participant/add" method="post">
-			<label>name<input name="name" id="name" /></label><br>
-			<label>pass<input name="password" id="password" /></label><br>
-			<label>mentor ID<input name="mentor" id="mentor" /></label><br>
+		<f:form action="participant/add" method="post" modelAttribute="participant">
+			<label>name<f:input path="name" name="name" id="name" /></label><br>
+			<f:errors path="name"/><br/>
+			<label>pass<f:input path="password" name="password" id="password" /></label><br>
+			<f:errors path="password"/><br/>
+			<label>mentor ID<f:input path="mentor" name="mentor" id="mentor" /></label><br>
+			<f:errors path="mentor"/><br/>
 			<input type="submit" value="ok"/>
-		</form>
+		</f:form>
 		<br><br>
 		LIST OF MENTEES
 		<br><br>

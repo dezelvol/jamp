@@ -25,7 +25,7 @@ public class MentorController {
 	private UserService service;
 
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String addMentor(@Valid Mentor mentor, BindingResult results, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+	public String addMentor(@Valid Mentor mentor, BindingResult results, RedirectAttributes redirectAttributes) {
 		if(results.hasFieldErrors()) {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mentor", results);
             redirectAttributes.addFlashAttribute("mentor", mentor);
