@@ -210,7 +210,14 @@
 		    <artifactId>hibernate-validator</artifactId>
 		    <version>5.2.4.Final</version>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.activemq/activemq-core -->
+		<dependency>
+		    <groupId>org.apache.activemq</groupId>
+		    <artifactId>activemq-core</artifactId>
+		    <version>5.7.0</version>
+		</dependency>
+		
 	    
 	</dependencies>
 	
