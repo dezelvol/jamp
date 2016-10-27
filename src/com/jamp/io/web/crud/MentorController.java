@@ -14,6 +14,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jamp.io.jms.JmsMessageProducer;
 import com.jamp.io.model.pojo.Mentor;
 import com.jamp.io.service.UserService;
 
@@ -23,6 +24,9 @@ public class MentorController {
 
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	JmsMessageProducer jmsMessageProducer; 
 
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addMentor(@Valid Mentor mentor, BindingResult results, RedirectAttributes redirectAttributes) {
@@ -30,6 +34,7 @@ public class MentorController {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mentor", results);
             redirectAttributes.addFlashAttribute("mentor", mentor);
 		} else {
+			jmsMessageProducer.sendPageActivity("Adding mentor");
 			service.addMentor(mentor);	
 		}
 		return "redirect:/user";

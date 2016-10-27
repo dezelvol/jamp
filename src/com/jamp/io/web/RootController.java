@@ -27,7 +27,7 @@ public class RootController {
 	@RequestMapping
 	public String index() {
 		if(sessionData.getUser() != null) {
-			jmsMessageProducer.sendUserLogin(new UserLoginEvent(LoginEventType.LOGIN, sessionData.getUser().getName()));
+			jmsMessageProducer.sendUserLogin(new UserLoginEvent(LoginEventType.LOGOUT, sessionData.getUser().getName()));
 			sessionData.setUser(null);
 		}
 		

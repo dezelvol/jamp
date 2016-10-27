@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jamp.io.jms.JmsMessageProducer;
 import com.jamp.io.model.pojo.Participant;
 import com.jamp.io.service.UserService;
 import com.jamp.io.utils.ParticipantValidator;
@@ -22,6 +23,9 @@ public class ParticipantController {
 	@Autowired
 	private ParticipantValidator participantValidator;
 	
+	@Autowired
+	JmsMessageProducer jmsMessageProducer; 
+	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addMentor(Participant participant, BindingResult results, RedirectAttributes redirectAttributes) {
 		participantValidator.validate(participant, results);
@@ -29,7 +33,7 @@ public class ParticipantController {
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.participant", results);
             redirectAttributes.addFlashAttribute("participant", participant);
 		} else {
-//			participant.setMentor(service.getMentor(mentor));
+			jmsMessageProducer.sendPageActivity("Adding participant");
 			service.addParticipant(participant);	
 		}
 		return "redirect:/user";

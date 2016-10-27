@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jamp.io.jms.JmsMessageProducer;
 import com.jamp.io.model.pojo.Mentor;
 import com.jamp.io.model.pojo.Participant;
 import com.jamp.io.model.pojo.User;
@@ -27,9 +28,12 @@ public class UserController {
 	@Autowired
 	private UserService userDao;
 	
+	@Autowired
+	JmsMessageProducer jmsMessageProducer; 
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public String addUser(Model modelAndView) {
-		
+		jmsMessageProducer.sendPageActivity("Homepage accessed");
 		List<User> sd = userDao.getUserList();
 		modelAndView.addAttribute("users", sd);
 		List<Mentor> ml = userDao.getMentorList();
