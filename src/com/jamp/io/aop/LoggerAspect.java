@@ -7,13 +7,18 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.jamp.io.jms.JmsMessageProducer;
 
 @Aspect
 @Component
 public class LoggerAspect {
-	private static final Logger LOGGER =
-			LoggerFactory.getLogger(LoggerAspect.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoggerAspect.class);
+	
+	@Autowired
+	JmsMessageProducer jmsMessageProducer; 
 	
 	@Around("execution(* com.jamp.io.model.dao..*(..))")
 	public Object LogControllerMethod(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -23,7 +28,9 @@ public class LoggerAspect {
 		for(Object o : methodArgs) {
 			arguments += " " + o;
 		}
-		LOGGER.info("Call DAO method " + method + ", with args: " + arguments);
+		
+		String msg = "Call DAO method " + method + ", with args: " + arguments;
+		LOGGER.info(msg);
 		Object result = joinPoint.proceed();
 		LOGGER.info("DAO method " + method + ", returns: " + result);
 		return result;

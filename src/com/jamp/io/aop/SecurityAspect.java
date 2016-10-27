@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.jamp.io.jms.JmsMessageProducer;
 import com.jamp.io.model.pojo.Auditable;
 import com.jamp.io.model.pojo.SessionData;
 import com.jamp.io.model.pojo.User;
@@ -22,6 +23,9 @@ public class SecurityAspect {
 	
 	@Autowired
 	SessionData sessionData;
+	
+	@Autowired
+	JmsMessageProducer jmsMessageProducer; 
 	
 	@Around(value = "execution(* com.jamp.io.web.crud..*(..))")
 	public Object secure(ProceedingJoinPoint joinPoint) throws Throwable {

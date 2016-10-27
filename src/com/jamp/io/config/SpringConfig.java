@@ -11,6 +11,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.jamp.io.aop.ProxiedBeanPostProcessor;
+import com.jamp.io.jms.JmsMessageProducer;
 
 @Configuration
 @EnableAspectJAutoProxy
@@ -30,5 +31,10 @@ public class SpringConfig {
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 //        validator.setValidationMessageSource(messageSource);
         return validator;
+    }
+    
+    @Bean
+    public JmsMessageProducer jmsMessageProducer() {
+    	return new JmsMessageProducer();
     }
 }

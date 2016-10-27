@@ -3,3 +3,4 @@
 /.classpath
 /.settings
 /.project
+/activemq-data/localhost/KahaDB/*
