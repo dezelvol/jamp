@@ -11,7 +11,10 @@ import com.jamp.io.model.pojo.SessionData;
 import com.jamp.io.service.UserService;
 import com.jamp.io.utils.servicebeans.UserLoginEvent;
 
-
+/**
+ * Index controller and default user initialized
+ * Shows logging form 
+ */
 @Controller
 @RequestMapping(value="/*")
 public class RootController {

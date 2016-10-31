@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import com.jamp.io.jms.JmsMessageProducer;
 
+/**
+ * Aspect thet provides simple logging
+ */
 @Aspect
 @Component
 public class LoggerAspect {
@@ -20,6 +23,10 @@ public class LoggerAspect {
 	@Autowired
 	JmsMessageProducer jmsMessageProducer; 
 	
+	/**
+	 * Interceptor for all methods from dao package
+	 * Log method called and result of call
+	 */
 	@Around("execution(* com.jamp.io.model.dao..*(..))")
 	public Object LogControllerMethod(ProceedingJoinPoint joinPoint) throws Throwable {
 		String method = joinPoint.getSignature().getName();
@@ -36,6 +43,9 @@ public class LoggerAspect {
 		return result;
 	}
 	
+	/**
+	 * Interceptor for dao package that is used to log exception thrown
+	 */
 	@AfterThrowing(value = "execution(* com.jamp.io.model.dao..*(..))", throwing="t")
 	public void LogException(JoinPoint joinPoint, Throwable t) {
 		String method = joinPoint.getSignature().getName();

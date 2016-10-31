@@ -1,5 +1,9 @@
 package com.jamp.io.web.crud;
 
+/**
+ * Main application controller related to data
+ * Initializes model and shows main application data
+ */
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;

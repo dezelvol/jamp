@@ -13,6 +13,9 @@ import com.jamp.io.model.pojo.Participant;
 import com.jamp.io.service.UserService;
 import com.jamp.io.utils.ParticipantValidator;
 
+/**
+ * Simple class to maintain actions related to participant objects
+ */
 @Controller
 @RequestMapping(value="/participant")
 public class ParticipantController {

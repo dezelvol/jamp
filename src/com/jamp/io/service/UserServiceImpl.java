@@ -9,6 +9,9 @@ import com.jamp.io.model.pojo.Mentor;
 import com.jamp.io.model.pojo.Participant;
 import com.jamp.io.model.pojo.User;
 
+/**
+ * Database implementation of persistance facade
+ */
 public class UserServiceImpl implements UserService {
 
 	@Autowired

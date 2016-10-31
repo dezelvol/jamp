@@ -18,6 +18,9 @@ import com.jamp.io.service.UserService;
 import com.jamp.io.utils.ParticipantValidator;
 import com.jamp.io.utils.StringToMentorConverter;
 
+/**
+ * Spring configurations related to MVC and WEB functionality
+ */
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy

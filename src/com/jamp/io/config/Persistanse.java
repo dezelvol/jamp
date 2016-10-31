@@ -29,6 +29,9 @@ import com.jamp.io.model.pojo.User;
 import com.jamp.io.service.UserService;
 import com.jamp.io.service.UserServiceImpl;
 
+/**
+ * All configuration related to persistence layer and database related
+ */
 @Configuration
 @EnableAspectJAutoProxy
 @EnableJpaRepositories

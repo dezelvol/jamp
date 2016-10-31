@@ -15,6 +15,11 @@ import com.jamp.io.model.pojo.Auditable;
 import com.jamp.io.model.pojo.SessionData;
 import com.jamp.io.model.pojo.User;
 
+/**
+ * Aspect for simple logging 
+ * Limits access to controllers in crud package
+ * Adds metadata when user is created or updated 
+ */
 @Aspect
 @Component
 public class SecurityAspect {
@@ -27,6 +32,10 @@ public class SecurityAspect {
 	@Autowired
 	JmsMessageProducer jmsMessageProducer; 
 	
+	/**
+	 * Main security method
+	 * Throws exception on unauthorized access to CRUD controller package
+	 */
 	@Around(value = "execution(* com.jamp.io.web.crud..*(..))")
 	public Object secure(ProceedingJoinPoint joinPoint) throws Throwable {
 		String method = joinPoint.getSignature().getName();
@@ -46,6 +55,10 @@ public class SecurityAspect {
 		return result;
 	}
 
+	/**
+	 * Interceptor that adds metadata on object creation
+	 * Covers all "add" methods in dao package
+	 */
 	@Around("execution(* com.jamp.io.model.dao..add*(..))")
 	public Object setCreated(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object[] methodArgs = joinPoint.getArgs();
@@ -59,6 +72,11 @@ public class SecurityAspect {
 		return joinPoint.proceed();
 	}
 	
+	/**
+	 * Interceptor that adds metadata on object update
+	 * Covers all "add" methods in dao package,
+	 * not working as update functionality not implemented
+	 */
 	@Around("execution(* com.jamp.io.model.dao..update*(..))")
 	public Object setUpdated(ProceedingJoinPoint joinPoint) throws Throwable {
 		Object[] methodArgs = joinPoint.getArgs();

@@ -14,6 +14,10 @@ import org.springframework.core.annotation.AnnotationUtils;
 
 import com.jamp.io.annotations.ProxyThis;
 
+/**
+ * Bean post processor to intercept methods that are annotated with ProxyThis annotation
+ * @see ProxyThis
+ */
 public class ProxiedBeanPostProcessor implements BeanPostProcessor {
 	private static final Logger LOGGER =
 			LoggerFactory.getLogger(ProxiedBeanPostProcessor.class);

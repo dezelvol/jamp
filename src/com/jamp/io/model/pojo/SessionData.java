@@ -1,5 +1,8 @@
 package com.jamp.io.model.pojo;
 
+/**
+ * Simple session data for authentication
+ */
 public class SessionData {
 	private User user = null;
 

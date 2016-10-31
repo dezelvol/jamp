@@ -12,9 +12,14 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 
-import com.jamp.io.enums.EventType;
+import com.jamp.io.enums.JmsEventType;
 import com.jamp.io.utils.servicebeans.UserLoginEvent;
- 
+
+/**
+ * JMS message consumer as separate java application
+ * Has separate session for logging activity messages that require acknowledgement
+ * and session for simple page activities that don't need additional acknowledgement
+ */
 public class JmsMessageConsumer {
     public static void main(String[] args) throws JMSException {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
@@ -26,8 +31,8 @@ public class JmsMessageConsumer {
         Session session2 = connection.createSession(false,
                 Session.CLIENT_ACKNOWLEDGE);
         try {
-            MessageConsumer consumerLogin = session2.createConsumer(destination, "MessageType='" + EventType.USER_LOGIN_EVENT + "'");
-            MessageConsumer pageEvent = session.createConsumer(destination, "MessageType='" + EventType.PAGE_EVENT + "'");
+            MessageConsumer consumerLogin = session2.createConsumer(destination, "MessageType='" + JmsEventType.USER_LOGIN_EVENT + "'");
+            MessageConsumer pageEvent = session.createConsumer(destination, "MessageType='" + JmsEventType.PAGE_EVENT + "'");
             connection.start();
             TextMessage msg;
             ObjectMessage logEvent;

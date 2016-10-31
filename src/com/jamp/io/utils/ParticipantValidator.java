@@ -8,6 +8,10 @@ import org.springframework.validation.Validator;
 
 import com.jamp.io.model.pojo.Participant;
 
+/**
+ * Custom validator for Participant object
+ * required to validate mentor field in right way 
+ */
 @Component
 public class ParticipantValidator implements Validator {
 

@@ -11,6 +11,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+/**
+ * Superclass for users
+ * Aggregates main methods and fields through all application users
+ */
 @Entity
 public class User implements Auditable {
 	@Id 

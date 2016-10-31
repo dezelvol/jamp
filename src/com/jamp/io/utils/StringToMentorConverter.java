@@ -11,7 +11,12 @@ public class StringToMentorConverter implements Converter<String, Mentor> {
 	@Autowired
 	UserService service;
 
-
+	/**
+	 * Converts mentorId to mentor
+	 * Is required to use auto binding and validation of Participant
+	 * @see Participant
+	 * @see ParticipantValidator
+	 */
 	@Override
 	public Mentor convert(String idString) {
 		long id = 0;

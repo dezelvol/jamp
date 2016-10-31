@@ -11,16 +11,25 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.stereotype.Service;
 
-import com.jamp.io.enums.EventType;
+import com.jamp.io.enums.JmsEventType;
 import com.jamp.io.enums.LoginEventType;
 import com.jamp.io.utils.servicebeans.UserLoginEvent;
- 
+
+/**
+ * JMS message producer that is used by spring application
+ * Uses two separate messages for sending messages with auto-acknowledgement 
+ * and with client-acknowledgement
+ */
 @Service
 public class JmsMessageProducer {
 	Session session = null;
 	Session session2 = null;
     Destination destination = new ActiveMQQueue("someQueue");
 
+    /**
+     * Sends events related to user login activity
+     * Acknowledgement must be made by consumer
+     */
 	public void sendUserLogin(UserLoginEvent message) {
 		if(session == null) {
 			initializeSession();
@@ -28,16 +37,20 @@ public class JmsMessageProducer {
         Message msg;
 		try {
 			msg = session2.createObjectMessage(message);
-			msg.setStringProperty("MessageType", EventType.USER_LOGIN_EVENT.toString());
+			msg.setStringProperty("MessageType", JmsEventType.USER_LOGIN_EVENT.toString());
 			msg.setJMSPriority(message.eventType == LoginEventType.LOGIN_FAILED ? 9 : 0);
 	        MessageProducer producer = session2.createProducer(destination);
 	        producer.send(msg);
 	        System.out.println("Send text '" + message + "'");
 		} catch (JMSException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // Sorry for this 
 		}
 	}
 	
+	/**
+	 *  Sends events related to user activity on page
+	 *  Acknowledgement is not necessary
+	 */
 	public void sendPageActivity(String message) {
 		if(session == null) {
 			initializeSession();
@@ -46,12 +59,12 @@ public class JmsMessageProducer {
         Message msg;
 		try {
 			msg = session.createTextMessage(payload);
-			msg.setStringProperty("MessageType", EventType.PAGE_EVENT.toString());
+			msg.setStringProperty("MessageType", JmsEventType.PAGE_EVENT.toString());
 	        MessageProducer producer = session.createProducer(destination);
 	        producer.send(msg);
 	        System.out.println("Send text '" + payload + "'");
 		} catch (JMSException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // Double sorry
 		}
 	}
 	

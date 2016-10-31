@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
  
 import org.apache.activemq.broker.BrokerFactory;
 import org.apache.activemq.broker.BrokerService;
- 
+
 public class JmsBroker {
     public static void main(String[] args) throws URISyntaxException, Exception {
         BrokerService broker = BrokerFactory.createBroker(new URI(

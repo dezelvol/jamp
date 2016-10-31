@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
+/**
+ * Interface to provide basic methods that are needed to update main application bean's metadata
+ */
 public interface Auditable {
 	
 	public Date getLastUpdated();

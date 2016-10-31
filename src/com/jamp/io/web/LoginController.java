@@ -13,7 +13,10 @@ import com.jamp.io.model.pojo.User;
 import com.jamp.io.service.UserService;
 import com.jamp.io.utils.servicebeans.UserLoginEvent;
 
-
+/**
+ * Only security controller
+ * Log-in user if appropriate login/password was used
+ */
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {

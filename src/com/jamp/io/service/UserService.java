@@ -10,6 +10,9 @@ import com.jamp.io.model.pojo.Mentor;
 import com.jamp.io.model.pojo.Participant;
 import com.jamp.io.model.pojo.User;
 
+/**
+ * Facade for anything that is related to persistanse 
+ */
 @Service
 public interface UserService {
 

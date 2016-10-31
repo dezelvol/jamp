@@ -7,6 +7,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+/**
+ * Mentor - could have many mentees 
+ */
 @Entity
 public class Mentor extends User {
 
