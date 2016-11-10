@@ -27,7 +27,7 @@ public class ParticipantController {
 	private ParticipantValidator participantValidator;
 	
 	@Autowired
-	JmsMessageProducer jmsMessageProducer; 
+	JmsMessageProducer jmsMessageProducer; // create aop(annotation) to send jms messages
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addMentor(Participant participant, BindingResult results, RedirectAttributes redirectAttributes) {

@@ -21,7 +21,7 @@ import com.jamp.io.utils.servicebeans.UserLoginEvent;
  * and with client-acknowledgement
  */
 @Service
-public class JmsMessageProducer {
+public class JmsMessageProducer { // extract interface.
 	Session session = null;
 	Session session2 = null;
     Destination destination = new ActiveMQQueue("someQueue");

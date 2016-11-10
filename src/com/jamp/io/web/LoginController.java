@@ -19,6 +19,7 @@ import com.jamp.io.utils.servicebeans.UserLoginEvent;
  */
 @Controller
 @RequestMapping(value="/login")
+// Where session is created
 public class LoginController {
 
 	@Autowired

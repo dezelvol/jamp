@@ -36,6 +36,7 @@ public class UserController {
 	JmsMessageProducer jmsMessageProducer; 
 	
 	@RequestMapping(method=RequestMethod.GET)
+	// Dao in controller ???
 	public String addUser(Model modelAndView) {
 		jmsMessageProducer.sendPageActivity("Homepage accessed");
 		List<User> sd = userDao.getUserList();
