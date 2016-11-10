@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionControllerAdvice {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> exResponse(Exception ex) {
-		return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); // more exceptions + more error codes
 	}
 }

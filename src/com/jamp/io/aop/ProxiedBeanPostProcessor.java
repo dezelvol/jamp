@@ -1,6 +1,5 @@
 package com.jamp.io.aop;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
@@ -18,7 +17,9 @@ import com.jamp.io.annotations.ProxyThis;
  * Bean post processor to intercept methods that are annotated with ProxyThis annotation
  * @see ProxyThis
  */
-public class ProxiedBeanPostProcessor implements BeanPostProcessor {
+
+// Your BPP works only for interfaces which is not widely used in real life
+public class ProxiedBeanPostProcessor implements BeanPostProcessor { // Better naming should be applied here:
 	private static final Logger LOGGER =
 			LoggerFactory.getLogger(ProxiedBeanPostProcessor.class);
 	
@@ -40,17 +41,15 @@ public class ProxiedBeanPostProcessor implements BeanPostProcessor {
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		if(map.containsKey(beanName)) {
 			Class<?> beanClass = map.get(beanName);
-			return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
-				
-				@Override
-				public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-					if(method.isAnnotationPresent(ProxyThis.class)) {
-						LOGGER.info("Proxified");
-					}
-					return method.invoke(bean, args);
+			// Try to use Java 8 features like lambda expressions
+			// This is not going to work with classes that does not implement interface or extend any parent class
+			return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), (proxy, method, args) -> {
+				if(method.isAnnotationPresent(ProxyThis.class)) { // Annotation might be erased in this phase.
+					LOGGER.info("Proxified");
 				}
+				return method.invoke(bean, args); // Exception propagation.
 			});
-		} else
+		}
 		return bean;
 	}
 }

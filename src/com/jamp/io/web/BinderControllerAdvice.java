@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
 @ControllerAdvice
+// Does this class do smth?
 public class BinderControllerAdvice {
 	@Autowired
 	private ConversionService conversionService;

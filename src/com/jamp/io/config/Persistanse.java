@@ -42,25 +42,8 @@ public class Persistanse {
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
-
-//	private Map<String, Object> jpaProperties() {
-//		final Map<String, Object> map = new HashMap<>();
-//		map.put("eclipselink.weaving", "false");
-// 
-//		return map;
-//	}
-//	
-//	@Bean(initMethod = "migrate")
-//	Flyway flyway() {
-//		Flyway flyway = new Flyway();
-//		flyway.setDataSource(dataSource());
-//		flyway.baseline();
-//		flyway.setLocations("com.jamp.io.model.dbmigration");
-//		return flyway;
-//	}
 	
     @Bean
-//	@DependsOn(value = { "flyway" })
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
         lef.setDataSource(dataSource);
