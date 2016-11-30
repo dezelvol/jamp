@@ -3,7 +3,7 @@ var app = angular.module('app', ['ngRoute']);
 app.config(function($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl : 'pages/home.html',
+            templateUrl : 'js/angular/pages/home.html',
             controller  : 'mainController'
         })
 });
@@ -13,6 +13,7 @@ app.controller('mainController', function($scope, ajax) {
     $scope.users;
     
     ajax.getUsers().then(function(response){
-    	$scope.users = response;
+    	$scope.users = response.data;
+    	$scope.message = "";
     });
 });
